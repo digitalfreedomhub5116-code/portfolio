@@ -3,7 +3,6 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 
 export const Hero: React.FC = () => {
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 100]);
   const yBackground = useTransform(scrollY, [0, 500], [0, 200]);
 
   // Premium easing curve (Ease Out Quart/Quint blend)
@@ -58,9 +57,8 @@ export const Hero: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        {/* Image */}
+        {/* Image - Parallax removed */}
         <motion.div 
-          style={{ y }}
           initial={{ opacity: 0, scale: 0.9, x: 60 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
@@ -95,7 +93,7 @@ export const Hero: React.FC = () => {
         className="absolute -bottom-12 -right-12 w-64 h-64 md:-bottom-24 md:-right-24 md:w-96 md:h-96 bg-stone-200 rounded-full blur-3xl -z-10"
       ></motion.div>
 
-      {/* Top Left Blob (Added for responsiveness/balance) */}
+      {/* Top Left Blob */}
       <motion.div 
         animate={{ 
           scale: [1.2, 1, 1.2],
