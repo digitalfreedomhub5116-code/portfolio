@@ -28,7 +28,7 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
@@ -81,17 +81,17 @@ export const Achievements: React.FC = () => {
         {/* Books Section */}
         <div className="mb-24">
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            variants={containerVariants}
             className="text-center mb-12"
           >
-             <div className="flex items-center justify-center gap-2 mb-3 text-amber-700">
+             <motion.div variants={itemVariants} className="flex items-center justify-center gap-2 mb-3 text-amber-700">
                <Book size={20} />
                <span className="uppercase tracking-widest text-xs font-bold">Publications</span>
-             </div>
-            <h2 className="font-serif text-3xl md:text-4xl text-stone-900">Author of 5+ Best-Selling Books</h2>
+             </motion.div>
+            <motion.h2 variants={itemVariants} className="font-serif text-3xl md:text-4xl text-stone-900">Author of 5+ Best-Selling Books</motion.h2>
           </motion.div>
 
           <motion.div 
@@ -132,17 +132,17 @@ export const Achievements: React.FC = () => {
         {/* Professional Achievements */}
         <div>
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            variants={containerVariants}
             className="text-center mb-12"
           >
-             <div className="flex items-center justify-center gap-2 mb-3 text-amber-700">
+             <motion.div variants={itemVariants} className="flex items-center justify-center gap-2 mb-3 text-amber-700">
                <Star size={20} />
                <span className="uppercase tracking-widest text-xs font-bold">Recognitions</span>
-             </div>
-            <h2 className="font-serif text-3xl md:text-4xl text-stone-900">Professional Milestones</h2>
+             </motion.div>
+            <motion.h2 variants={itemVariants} className="font-serif text-3xl md:text-4xl text-stone-900">Professional Milestones</motion.h2>
           </motion.div>
 
           <motion.div 

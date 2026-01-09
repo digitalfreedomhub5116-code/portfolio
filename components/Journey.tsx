@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 interface Milestone {
   year: string;
@@ -47,7 +47,7 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
@@ -62,23 +62,32 @@ export const Journey: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"]
+    offset: ["start 80%", "end 50%"]
   });
 
-  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  // Add spring physics to the scroll progress for a smoother, fluid fill effect
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const lineHeight = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <div className="py-24 bg-white relative">
+    <div className="py-24 bg-white relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-12">
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          variants={containerVariants}
           className="text-center mb-16"
         >
-          <h2 className="font-serif text-4xl md:text-5xl text-stone-900 mb-4">My Journey</h2>
-          <div className="w-16 h-1 bg-amber-700 mx-auto opacity-50"></div>
+          <motion.h2 variants={itemVariants} className="font-serif text-4xl md:text-5xl text-stone-900 mb-4">
+            My Journey
+          </motion.h2>
+          <motion.div variants={itemVariants} className="w-16 h-1 bg-amber-700 mx-auto opacity-50"></motion.div>
         </motion.div>
 
         <div ref={containerRef} className="relative max-w-4xl mx-auto pb-12">
